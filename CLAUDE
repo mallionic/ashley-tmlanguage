@@ -10,13 +10,5 @@ helped write only the files of this repository:
 and the GitHub Linguist entry for ASH (Ashley) on the add-ash-ashley branch
 of https://github.com/mallionic/linguist
 
-Claude did NOT create the ASH language, the ashc compiler, nlib or any other
-part of The Ashley Project. All of that is the work of mallionic
-(The Ashley Project, Mallionic Inc.), who owns this repository.
-
 ----------------------------------------------------------------------------
 
-Claude (Opus 5.5), de Anthropic, solo ayudó a escribir la gramática
-tmLanguage de este repositorio y la entrada de ASH (Ashley) para GitHub
-Linguist. NO creó el lenguaje ASH, ni el compilador ashc, ni nlib: todo eso
-es obra de mallionic (The Ashley Project, Mallionic Inc.).
