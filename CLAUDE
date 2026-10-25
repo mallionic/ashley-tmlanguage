@@ -1,28 +1,22 @@
 CLAUDE
 ======
 
-This grammar was written with the help of Claude (Opus 5.5), an AI model
-made by Anthropic, used through Claude Code.
+Claude (Opus 5.5), an AI model made by Anthropic, used through Claude Code,
+helped write only the files of this repository:
 
-Owner and author of the ASH language and of this repository:
-  mallionic (The Ashley Project, Mallionic Inc.)
+  - grammars/ashley.tmLanguage.json  (TextMate grammar, scope source.ashley)
+  - README.md and this file
 
-What Claude did:
-  - Wrote grammars/ashley.tmLanguage.json (scope source.ashley), based on the
-    ASH Pygments lexer from The Ashley Project (docs/ash-guide-src/lexers.py).
-  - Covered: keywords (func, class, struct, pub, priv, general, ungeneral,
-    static, return, terminate, repeat, loop, ...), types (int8..uint64, ...),
-    annotations (@Entry, @naked, @nolibc, @beautycode, @bits, @ovr, ...),
-    % directives, strings with escapes and printf placeholders, numbers,
-    and asm { } / volatile asm { } blocks with x86 registers.
-  - Prepared the GitHub Linguist support for ASH (Ashley): the languages.yml
-    entry, heuristics for .ash / .as and samples, on the add-ash-ashley branch
-    of https://github.com/mallionic/linguist
+and the GitHub Linguist entry for ASH (Ashley) on the add-ash-ashley branch
+of https://github.com/mallionic/linguist
 
-All code was reviewed and published by mallionic.
+Claude did NOT create the ASH language, the ashc compiler, nlib or any other
+part of The Ashley Project. All of that is the work of mallionic
+(The Ashley Project, Mallionic Inc.), who owns this repository.
 
 ----------------------------------------------------------------------------
 
-Esta gramática se escribió con ayuda de Claude (Opus 5.5), un modelo de IA de
-Anthropic, usado a través de Claude Code. El lenguaje ASH y este repositorio
-son de mallionic (The Ashley Project, Mallionic Inc.).
+Claude (Opus 5.5), de Anthropic, solo ayudó a escribir la gramática
+tmLanguage de este repositorio y la entrada de ASH (Ashley) para GitHub
+Linguist. NO creó el lenguaje ASH, ni el compilador ashc, ni nlib: todo eso
+es obra de mallionic (The Ashley Project, Mallionic Inc.).
