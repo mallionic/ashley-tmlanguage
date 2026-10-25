@@ -1,0 +1,218 @@
+{
+  "$schema": "https://raw.githubusercontent.com/martinring/tmlanguage/master/tmlanguage.json",
+  "name": "ASH (Ashley)",
+  "scopeName": "source.ashley",
+  "fileTypes": ["ash", "as", "ah"],
+  "patterns": [
+    { "include": "#comments" },
+    { "include": "#directives" },
+    { "include": "#use-strict" },
+    { "include": "#annotations" },
+    { "include": "#asm-block" },
+    { "include": "#func-decl" },
+    { "include": "#type-decl" },
+    { "include": "#strings" },
+    { "include": "#keywords" },
+    { "include": "#types" },
+    { "include": "#constants" },
+    { "include": "#builtins" },
+    { "include": "#numbers" },
+    { "include": "#function-call" },
+    { "include": "#operators" },
+    { "include": "#punctuation" }
+  ],
+  "repository": {
+    "comments": {
+      "patterns": [
+        {
+          "name": "comment.block.ashley",
+          "begin": "/\\*",
+          "end": "\\*/",
+          "captures": { "0": { "name": "punctuation.definition.comment.ashley" } }
+        },
+        {
+          "name": "comment.line.double-slash.ashley",
+          "begin": "//",
+          "end": "$",
+          "beginCaptures": { "0": { "name": "punctuation.definition.comment.ashley" } }
+        }
+      ]
+    },
+    "directives": {
+      "patterns": [
+        {
+          "name": "meta.preprocessor.ashley",
+          "match": "^\\s*(%)(define|undef|if|ifdef|ifndef|elif|else|endif|error|warning|include|[a-z_]+)\\b(.*)$",
+          "captures": {
+            "1": { "name": "punctuation.definition.directive.ashley" },
+            "2": { "name": "keyword.control.directive.ashley" },
+            "3": { "name": "meta.preprocessor.content.ashley" }
+          }
+        }
+      ]
+    },
+    "use-strict": {
+      "match": "^\\s*(\"use strict\")\\s*;?",
+      "captures": { "1": { "name": "keyword.other.use-strict.ashley" } }
+    },
+    "annotations": {
+      "patterns": [
+        {
+          "name": "storage.type.annotation.ashley",
+          "match": "(@)(Entry|entry|naked|nolibc|beautycode|bits|override|ovr|emit|section|__section__|attribute|__attribute__|atributo|bounds|boundscheck|efiapi|EFIAPI|msabi|org|originoffs|offset|strict)\\b",
+          "captures": { "1": { "name": "punctuation.definition.annotation.ashley" } }
+        },
+        {
+          "name": "storage.type.annotation.ashley",
+          "match": "(@)[A-Za-z_]\\w*",
+          "captures": { "1": { "name": "punctuation.definition.annotation.ashley" } }
+        }
+      ]
+    },
+    "asm-block": {
+      "name": "meta.asm.block.ashley",
+      "begin": "\\b(?:(volatile)\\s+)?(asm|__asm__)\\s*(\\{)",
+      "beginCaptures": {
+        "1": { "name": "storage.modifier.volatile.ashley" },
+        "2": { "name": "keyword.other.asm.ashley" },
+        "3": { "name": "punctuation.section.block.begin.ashley" }
+      },
+      "end": "\\}",
+      "endCaptures": { "0": { "name": "punctuation.section.block.end.ashley" } },
+      "contentName": "source.asm.embedded.ashley",
+      "patterns": [
+        { "name": "comment.line.semicolon.asm.ashley", "match": ";.*$" },
+        { "include": "#comments" },
+        { "name": "entity.name.label.asm.ashley", "match": "^\\s*[A-Za-z_.][\\w.]*:" },
+        {
+          "name": "storage.type.size.asm.ashley",
+          "match": "\\b(byte|word|dword|qword|tword|oword|ptr|rel|abs)\\b"
+        },
+        {
+          "name": "variable.language.register.asm.ashley",
+          "match": "\\b(r(?:[abcd]x|[sd]i|[sb]p|ip)|e(?:[abcd]x|[sd]i|[sb]p|ip)|[abcd]x|[sd]i|[sb]p|[abcd][lh]|[sd]il|[sb]pl|r(?:8|9|1[0-5])[dwb]?|[cdefgs]s|[xyz]mm\\d+|st\\d?|mm\\d|cr[0-8]|dr[0-7])\\b"
+        },
+        { "name": "constant.numeric.asm.ashley", "match": "\\b0[xX][0-9A-Fa-f]+\\b|\\b\\d+\\b" },
+        { "name": "keyword.other.instruction.asm.ashley", "match": "^\\s*[a-z][a-z0-9]*\\b" },
+        { "name": "variable.other.asm.ashley", "match": "\\b[A-Za-z_]\\w*\\b" }
+      ]
+    },
+    "func-decl": {
+      "match": "\\b(func)\\s+([A-Za-z_]\\w*)",
+      "captures": {
+        "1": { "name": "storage.type.function.ashley" },
+        "2": { "name": "entity.name.function.ashley" }
+      }
+    },
+    "type-decl": {
+      "match": "\\b(class|struct|typedef)\\s+([A-Za-z_]\\w*)",
+      "captures": {
+        "1": { "name": "storage.type.class.ashley" },
+        "2": { "name": "entity.name.type.ashley" }
+      }
+    },
+    "strings": {
+      "patterns": [
+        {
+          "name": "string.quoted.triple.ashley",
+          "begin": "\"\"\"",
+          "end": "\"\"\"",
+          "patterns": [{ "name": "constant.character.escape.ashley", "match": "\\\\." }]
+        },
+        {
+          "name": "string.quoted.double.ashley",
+          "begin": "L?\"",
+          "end": "\"",
+          "patterns": [
+            {
+              "name": "constant.character.escape.ashley",
+              "match": "\\\\(x[0-9A-Fa-f]{2}|u[0-9A-Fa-f]{4}|[0-7]{1,3}|.)"
+            },
+            {
+              "name": "constant.other.placeholder.ashley",
+              "match": "%[-+ #0]*(\\d+|\\*)?(\\.(\\d+|\\*))?(hh|h|ll|l|z|j|t|L)?[diouxXeEfFgGaAcspn%]"
+            }
+          ]
+        },
+        {
+          "name": "string.quoted.single.ashley",
+          "match": "'(\\\\.|[^'\\\\])'"
+        }
+      ]
+    },
+    "keywords": {
+      "patterns": [
+        {
+          "name": "keyword.control.ashley",
+          "match": "\\b(return|terminate|unreturnable|unreturn|if|elif|else|switch|case|default|while|for|repeat|loop|break|continue)\\b"
+        },
+        {
+          "name": "keyword.other.ashley",
+          "match": "\\b(import|extern|define|redefine|macro|runnable|matrix|asm|__asm__)\\b"
+        },
+        {
+          "name": "storage.modifier.ashley",
+          "match": "\\b(pub|priv|general|ungeneral|static|const|volatile|global)\\b"
+        },
+        {
+          "name": "storage.type.ashley",
+          "match": "\\b(func|class|struct|typedef)\\b"
+        }
+      ]
+    },
+    "types": {
+      "name": "storage.type.primitive.ashley",
+      "match": "\\b(u?int(?:8|16|32|64)(?:_t)?|byte|word|dword|qword|u?char|schar|bool|u?short|u?int|u?long|u?llong|s?size_t|u?intptr_t|ptrdiff_t|float(?:32|64)?|double|c?string|ptr|void|unsigned|signed)\\b"
+    },
+    "constants": {
+      "name": "constant.language.ashley",
+      "match": "\\b(true|false|TRUE|FALSE|NULL|null|nil|NIL)\\b"
+    },
+    "builtins": {
+      "patterns": [
+        {
+          "match": "\\b(ashley)(\\.)([A-Za-z_]\\w*)",
+          "captures": {
+            "1": { "name": "support.class.builtin.ashley" },
+            "2": { "name": "punctuation.accessor.ashley" },
+            "3": { "name": "support.function.builtin.ashley" }
+          }
+        },
+        {
+          "name": "support.function.builtin.ashley",
+          "match": "\\b(va_arg|va_count|rows|cols|count|len|length|emit|emit8|emit16|emit32|emit64)\\b(?=\\s*\\()"
+        }
+      ]
+    },
+    "numbers": {
+      "patterns": [
+        { "name": "constant.numeric.hex.ashley", "match": "\\b0[xX][0-9A-Fa-f_]+(ULL|UL|LL|U|L)?\\b" },
+        { "name": "constant.numeric.binary.ashley", "match": "\\b0[bB][01_]+\\b" },
+        { "name": "constant.numeric.octal.ashley", "match": "\\b0[oO][0-7_]+\\b" },
+        { "name": "constant.numeric.float.ashley", "match": "\\b\\d[\\d_]*\\.\\d+([eE][-+]?\\d+)?[fF]?\\b" },
+        { "name": "constant.numeric.integer.ashley", "match": "\\b\\d[\\d_]*(ULL|UL|LL|U|L)?\\b" }
+      ]
+    },
+    "function-call": {
+      "match": "\\b([A-Za-z_]\\w*)(?=\\s*\\()",
+      "captures": { "1": { "name": "entity.name.function.call.ashley" } }
+    },
+    "operators": {
+      "patterns": [
+        { "name": "keyword.operator.ellipsis.ashley", "match": "\\.\\.\\." },
+        {
+          "name": "keyword.operator.ashley",
+          "match": "\\*\\*\\*|\\*\\*|<<=|>>=|\\+=|-=|\\*=|/=|%=|&=|\\|=|\\^=|->|\\+\\+|--|==|!=|<=|>=|&&|\\|\\||<<|>>|[-+*/%&|^~!<>=?:#]"
+        }
+      ]
+    },
+    "punctuation": {
+      "patterns": [
+        { "name": "punctuation.terminator.statement.ashley", "match": ";" },
+        { "name": "punctuation.separator.comma.ashley", "match": "," },
+        { "name": "punctuation.accessor.ashley", "match": "\\." },
+        { "name": "punctuation.section.ashley", "match": "[{}()\\[\\]]" }
+      ]
+    }
+  }
+}
