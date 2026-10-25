@@ -1,0 +1,28 @@
+CLAUDE
+======
+
+This grammar was written with the help of Claude (Opus 5.5), an AI model
+made by Anthropic, used through Claude Code.
+
+Owner and author of the ASH language and of this repository:
+  mallionic (The Ashley Project, Mallionic Inc.)
+
+What Claude did:
+  - Wrote grammars/ashley.tmLanguage.json (scope source.ashley), based on the
+    ASH Pygments lexer from The Ashley Project (docs/ash-guide-src/lexers.py).
+  - Covered: keywords (func, class, struct, pub, priv, general, ungeneral,
+    static, return, terminate, repeat, loop, ...), types (int8..uint64, ...),
+    annotations (@Entry, @naked, @nolibc, @beautycode, @bits, @ovr, ...),
+    % directives, strings with escapes and printf placeholders, numbers,
+    and asm { } / volatile asm { } blocks with x86 registers.
+  - Prepared the GitHub Linguist support for ASH (Ashley): the languages.yml
+    entry, heuristics for .ash / .as and samples, on the add-ash-ashley branch
+    of https://github.com/mallionic/linguist
+
+All code was reviewed and published by mallionic.
+
+----------------------------------------------------------------------------
+
+Esta gramática se escribió con ayuda de Claude (Opus 5.5), un modelo de IA de
+Anthropic, usado a través de Claude Code. El lenguaje ASH y este repositorio
+son de mallionic (The Ashley Project, Mallionic Inc.).
